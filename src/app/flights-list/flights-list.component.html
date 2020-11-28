@@ -1,0 +1,8 @@
+<ng-container *ngIf="flights$ | async; let flights">
+    <div cdkDropList class="example-list">
+        <div cdkDrag class="example-box" *ngFor="let flight of flights">
+            {{flight.id}}
+            <!-- <mckee-flight-summary [flight]="flight"></mckee-flight-summary> -->
+        </div>
+    </div>
+</ng-container>
