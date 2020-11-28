@@ -11,7 +11,7 @@
         <div class="content">
             <ng-container *ngIf="aircrafts$ | async; let aircrafts">
                 <ng-container *ngFor="let aircraft of aircrafts">
-                    <mckee-aircraft-summary [aircraft]="aircraft"></mckee-aircraft-summary>
+                    <mckee-aircraft-summary class="aircraft-summary" [aircraft]="aircraft"></mckee-aircraft-summary>
                 </ng-container>
             </ng-container>
         </div>
@@ -27,13 +27,12 @@
             <ng-container *ngIf="flightsInRotation$ | async; let flightsInRotation">
                 <div id="rotation-list" cdkDropList #rotationList="cdkDropList" [cdkDropListData]="flightsInRotation"
                     [cdkDropListConnectedTo]="['flights-list']" class="example-list"
-                    (cdkDropListDropped)="rotationDropped($event, flightsInRotation)">
+                    (cdkDropListDropped)="rotationFlightDropped($event)">
                     <div cdkDrag class="example-box" *ngFor="let flight of flightsInRotation">
                         <mckee-flight-summary [flight]="flight"></mckee-flight-summary>
                     </div>
                 </div>
             </ng-container>
-
         </div>
     </div>
 
@@ -47,7 +46,7 @@
             <ng-container *ngIf="flights$ | async; let flights">
                 <div id="flights-list" cdkDropList #todoList="cdkDropList" [cdkDropListData]="flights"
                     [cdkDropListConnectedTo]="['rotation-list']" class="example-list"
-                    (cdkDropListDropped)="availableFlightDropped($event, flights)">
+                    (cdkDropListDropped)="availableFlightDropped($event)">
                     <div cdkDrag class="example-box" *ngFor="let flight of flights">
                         <mckee-flight-summary [flight]="flight"></mckee-flight-summary>
                     </div>
