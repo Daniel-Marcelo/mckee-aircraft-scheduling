@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, filter, map, tap } from 'rxjs/operators';
+import { flightsUrl } from '../api.constants';
 import { Flight, GetFlightsResponse } from './flight.model';
 
 @Injectable({
@@ -20,7 +21,7 @@ export class FlightService {
    }
 
   getFlights() {
-    return this.http.get<GetFlightsResponse>('https://infinite-dawn-93085.herokuapp.com/flights').pipe(
+    return this.http.get<GetFlightsResponse>(flightsUrl).pipe(
       tap(flightsInfo => console.log("Successfully retrieved list of available flights")),
       tap(flightsInfo => this.flightsResponse$.next(flightsInfo)),
       catchError(error => {

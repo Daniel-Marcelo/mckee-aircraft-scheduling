@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Aircraft } from '../aircraft-service/aircraft.model';
+import { AircraftService } from '../aircraft-service/aircraft.service';
 import { Flight } from '../flight-service/flight.model';
 import { FlightService } from '../flight-service/flight.service';
 
@@ -24,11 +26,16 @@ export class AircraftSchedulingComponent implements OnInit {
     readable_departure: '07:30',
     readable_arrival: '09:15', origin: 'LHBP', destination: 'LFSB'
   }];
-  public flights$: Observable<Flight[]>
-  constructor(private flightService: FlightService) { }
+  public flights$: Observable<Flight[]>;
+  public aircrafts$: Observable<Aircraft[]>;
+
+  constructor(private flightService: FlightService, private aircraftService: AircraftService) { }
 
   ngOnInit(): void {
-    this.flightService.getFlights().pipe().subscribe();
+    this.flightService.getFlights().subscribe();
     this.flights$ = this.flightService.flights$;
+
+    this.aircraftService.getAircrafts().subscribe();
+    this.aircrafts$ = this.aircraftService.aircrafts$;
   }
 }
