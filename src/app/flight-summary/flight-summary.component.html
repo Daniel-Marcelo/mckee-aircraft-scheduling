@@ -1,0 +1,23 @@
+<mat-card *ngIf="flight">
+    <div class="title-container">
+        <span>Flight: {{flight.id}}</span>
+    </div>
+    <div class="flight-content">
+        <div class="depart">
+            <div class="location">
+                {{flight.origin}}
+            </div>
+            <div class="time">
+                {{flight.readable_departure}}
+            </div>
+        </div>
+        <div class="arrive">
+            <div class="location">
+                {{flight.destination}}
+            </div>
+            <div class="time">
+                {{flight.readable_arrival}}
+            </div>
+        </div>
+    </div>
+</mat-card>

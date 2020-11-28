@@ -1,0 +1,17 @@
+
+mat-card {
+    height: 100px;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 10px;
+
+        .title-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .flight-content {
+            display: flex;
+            justify-content: space-between;
+        }
+}

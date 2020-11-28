@@ -1,10 +1,11 @@
+mat-card {
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-.flight-summary-container {
-    display:flex;
-    flex-direction: column;
-
-    .summary-info {
-        display: flex;
-        justify-content: center;
-    }
+        .summary-info {
+            display: flex;
+            justify-content: center;
+        }
 }
