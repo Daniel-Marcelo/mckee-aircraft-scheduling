@@ -1,0 +1,54 @@
+:host {
+    display: flex;
+    flex-flow: column nowrap;
+    height: 100%;
+}
+
+header {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid blue;
+}
+
+section {
+    flex: 8;
+    display: flex;
+    border: 1px solid red;
+}
+
+.title-container {
+
+    display: flex;
+    justify-content: center;
+    .title {
+        border: 1px solid blue;
+    }
+}
+
+.content {
+    border: 1px solid black;
+    flex: 1;
+}
+
+
+.aircraft {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.rotation {
+    border: 1px solid green;
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.available-flights {
+    border: 1px solid purple;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}

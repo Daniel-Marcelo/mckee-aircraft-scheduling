@@ -1,0 +1,10 @@
+
+.flight-summary-container {
+    display:flex;
+    flex-direction: column;
+
+    .summary-info {
+        display: flex;
+        justify-content: center;
+    }
+}
