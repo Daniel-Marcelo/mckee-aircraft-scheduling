@@ -3,13 +3,15 @@ import { CommonModule } from '@angular/common';
 import { AircraftSchedulingComponent } from './aircraft-scheduling.component';
 import { AircraftSummaryModule } from '../aircraft-summary/aircraft-summary.module';
 import { FlightSummaryModule } from '../flight-summary/flight-summary.module';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [AircraftSchedulingComponent],
   imports: [
     CommonModule,
     AircraftSummaryModule,
-    FlightSummaryModule
+    FlightSummaryModule,
+    DragDropModule
   ],
   exports: [AircraftSchedulingComponent]
 })
