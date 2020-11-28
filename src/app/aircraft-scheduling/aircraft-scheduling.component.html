@@ -9,7 +9,11 @@
             <span class="title">Aircraft</span>
         </div>
         <div class="content">
-            <mckee-aircraft-summary></mckee-aircraft-summary>
+            <ng-container *ngIf="aircrafts$ | async; let aircrafts">
+                <ng-container *ngFor="let aircraft of aircrafts">
+            <mckee-aircraft-summary [aircraft]="aircraft"></mckee-aircraft-summary>
+        </ng-container>     
+      </ng-container>
         </div>
     </div>
 
