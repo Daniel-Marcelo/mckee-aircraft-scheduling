@@ -28,6 +28,7 @@ section {
 }
 
 .content {
+    display: flex;
     border: 1px solid black;
     flex: 1;
 }
@@ -51,6 +52,14 @@ section {
     flex: 1;
     display: flex;
     flex-direction: column;
+}
+
+.aircraft-summary {
+    flex: 1;
+}
+
+.example-list {
+    flex: 1;
 }
 
 
