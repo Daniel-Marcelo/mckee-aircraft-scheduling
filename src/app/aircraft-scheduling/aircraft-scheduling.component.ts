@@ -1,7 +1,9 @@
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Aircraft } from '../aircraft-service/aircraft.model';
 import { AircraftService } from '../aircraft-service/aircraft.service';
+import { FlightRotationService } from '../flight-rotation/flight-rotation.service';
 import { Flight } from '../flight-service/flight.model';
 import { FlightService } from '../flight-service/flight.service';
 
@@ -12,24 +14,11 @@ import { FlightService } from '../flight-service/flight.service';
 })
 export class AircraftSchedulingComponent implements OnInit {
 
-  fs: Flight[] = [{
-    id: 'AS1234',
-    departuretime: 27000,
-    arrivaltime: 33300,
-    readable_departure: '07:30',
-    readable_arrival: '09:15', origin: 'LHBP', destination: 'LFSB'
-  },
-  {
-    id: 'AS1234',
-    departuretime: 27000,
-    arrivaltime: 33300,
-    readable_departure: '07:30',
-    readable_arrival: '09:15', origin: 'LHBP', destination: 'LFSB'
-  }];
   public flights$: Observable<Flight[]>;
   public aircrafts$: Observable<Aircraft[]>;
+  public flightsInRotation$: Observable<Flight[]>;
 
-  constructor(private flightService: FlightService, private aircraftService: AircraftService) { }
+  constructor(private flightService: FlightService, private aircraftService: AircraftService, private flightRotationService: FlightRotationService) { }
 
   ngOnInit(): void {
     this.flightService.getFlights().subscribe();
@@ -37,5 +26,19 @@ export class AircraftSchedulingComponent implements OnInit {
 
     this.aircraftService.getAircrafts().subscribe();
     this.aircrafts$ = this.aircraftService.aircrafts$;
+
+    this.flightsInRotation$ = this.flightRotationService.flights$;
+  }
+
+  availableFlightDropped(event: CdkDragDrop<Flight[]>, availableFlights: Flight[]){
+    if(event.previousContainer !== event.container) {
+
+    }
+  }
+
+  rotationDropped(event: CdkDragDrop<Flight[]>, flightsInRotation: Flight[]){
+    if(event.previousContainer !== event.container) {
+
+    }
   }
 }
