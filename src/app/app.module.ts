@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { AircraftSchedulingModule } from './aircraft-scheduling/aircraft-scheduling.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -10,7 +11,8 @@ import { AircraftSchedulingModule } from './aircraft-scheduling/aircraft-schedul
   ],
   imports: [
     BrowserModule,
-    AircraftSchedulingModule
+    AircraftSchedulingModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
