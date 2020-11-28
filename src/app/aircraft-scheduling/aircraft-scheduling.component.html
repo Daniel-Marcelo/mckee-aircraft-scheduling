@@ -1,6 +1,6 @@
 <header>
     <span>
-        < 4th January 2018>
+        < 4th January 2018 >
     </span>
 </header>
 <section>
@@ -12,14 +12,23 @@
             <mckee-aircraft-summary></mckee-aircraft-summary>
         </div>
     </div>
+
+
+    
     <div class="rotation">
         <div class="title-container">
             <span class="title">Rotation ABCDE</span>
         </div>
         <div class="content">
-            <mckee-flight-summary></mckee-flight-summary>
+            <div id="rotation-list" cdkDropList #rotationList="cdkDropList" [cdkDropListConnectedTo]="['flights-list']" class="example-list">
+                <div cdkDrag class="example-box" *ngFor="let flight of fs">
+                    <mckee-flight-summary [flight]="flight"></mckee-flight-summary>
+                </div>
+            </div>
         </div>
     </div>
+
+
 
     <div class="available-flights">
         <div class="title-container">
@@ -27,7 +36,7 @@
         </div>
         <div class="content">
             <ng-container *ngIf="flights$ | async; let flights">
-                <div cdkDropList class="example-list">
+                <div id="flights-list" cdkDropList #todoList="cdkDropList" [cdkDropListConnectedTo]="['rotation-list']" class="example-list">
                     <div cdkDrag class="example-box" *ngFor="let flight of flights">
                         <mckee-flight-summary [flight]="flight"></mckee-flight-summary>
                     </div>
