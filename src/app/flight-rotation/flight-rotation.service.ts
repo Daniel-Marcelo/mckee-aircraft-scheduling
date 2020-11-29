@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Flight } from '../flight-service/flight.model';
+import { tap } from 'rxjs/operators';
+import { Flight, sortFlights } from '../flight-service/flight.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,8 @@ export class FlightRotationService {
   private flights = new BehaviorSubject<Flight[]>([]);
 
   constructor() {
-    this.flights$ = this.flights.asObservable();
+    this.flights$ = this.flights.asObservable().pipe(
+      tap(flights => sortFlights(flights))
+    );
    }
 }

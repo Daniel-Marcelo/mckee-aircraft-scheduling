@@ -9,13 +9,14 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid blue;
+    // border: 1px solid blue;
 }
 
 section {
     flex: 8;
     display: flex;
-    border: 1px solid red;
+    padding: 20px 80px 20px 80px;
+    // border: 1px solid red;
 }
 
 .title-container {
@@ -23,13 +24,13 @@ section {
     display: flex;
     justify-content: center;
     .title {
-        border: 1px solid blue;
+        // border: 1px solid blue;
     }
 }
 
 .content {
     display: flex;
-    border: 1px solid black;
+    // border: 1px solid black;
     flex: 1;
 }
 
@@ -41,14 +42,15 @@ section {
 }
 
 .rotation {
-    border: 1px solid green;
+    // border: 1px solid    green;
     flex: 2;
     display: flex;
     flex-direction: column;
+    padding: 0px 20px;
 }
 
 .available-flights {
-    border: 1px solid purple;
+    // border: 1px solid purple;
     flex: 1;
     display: flex;
     flex-direction: column;

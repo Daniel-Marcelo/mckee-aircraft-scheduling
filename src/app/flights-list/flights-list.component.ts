@@ -10,11 +10,12 @@ import { FlightService } from '../flight-service/flight.service';
 })
 export class FlightsListComponent implements OnInit {
 
-  public flights$: Observable<Flight[]>
-  constructor(private flightService: FlightService) { }
+  public readonly flights$: Observable<Flight[]>
+  constructor(private flightService: FlightService) {
+    this.flights$ = this.flightService.flights$;
+  }
 
   ngOnInit(): void {
     this.flightService.getFlights().pipe().subscribe();
-    this.flights$ = this.flightService.flights$;
   }
 }
