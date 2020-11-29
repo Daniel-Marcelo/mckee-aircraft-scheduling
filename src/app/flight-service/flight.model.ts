@@ -18,3 +18,16 @@ export interface Pagination {
     limit: number;
     total: number;
 }
+
+// Sorts flights based on departure date
+export const sortFlights = (flights: Flight[]) => {
+    flights.sort((a, b) => {
+      if (a.departuretime > b.departuretime) {
+        return 1;
+      } else if (a.departuretime < b.departuretime) {
+        return -1;
+      } else {
+        return 0;
+      }
+    });
+  }

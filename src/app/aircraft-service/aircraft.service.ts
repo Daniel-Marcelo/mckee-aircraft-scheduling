@@ -10,7 +10,6 @@ import { Aircraft, GetAircraftResponse } from './aircraft.model';
 })
 export class AircraftService {
 
-  private readonly 
   public readonly aircrafts$: Observable<Aircraft[]>
   private aircraftResponse$ = new BehaviorSubject<GetAircraftResponse>(null);
 

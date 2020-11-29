@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Aircraft } from '../aircraft-service/aircraft.model';
+import { AircraftUtilisationService } from '../aircraft-utilisation/aircraft-utilisation.service';
 
 @Component({
   selector: 'mckee-aircraft-summary',
@@ -11,7 +13,11 @@ export class AircraftSummaryComponent implements OnInit {
   @Input()
   public aircraft: Aircraft;
   
-  constructor() { }
+  public readonly aircraftUtilisation$: Observable<number>;
+
+  constructor(private aircraftUtilisationService: AircraftUtilisationService) {
+    this.aircraftUtilisation$ = this.aircraftUtilisationService.aircraftUtilisation$;
+   }
 
   ngOnInit(): void {
   }
