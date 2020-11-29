@@ -10,48 +10,55 @@ import { RotationValidation } from './rotation-validator.model';
 export class RotationValidatorService {
 
   private readonly flightPathError = 'Invalid origin/dest. for subsequent flights.';
-  private readonly turnaroundTimeError = 'Min. turnaround of 20 minutes.';
+  private readonly turnaroundTimeError = 'Min. turnaround time of 20 minutes.';
   private readonly groundedAtMidnightError = 'Flight must be grounded at midnight.';
 
   private validationMessageMap = new Map<RotationValidation, string>([])
 
   constructor(private messageService: MessageService) { }
 
-  validateRotation(flights: Flight[]): void {
+  validateRotation(flights: Flight[]): boolean {
     this.messageService.clear();
     this.validationMessageMap.clear();
-    // let flightPathValid = false;
-    // let turnaroundTimeValid = false;
-    const groundedAtMidnightValid = this.validateGroundedAtMidnight(flights);
+    let invalid = false;
+    if (flights.length > 0) {
+      const notGroundedAtMidnight = this.isNotGroundedAtMidnight(flights);
 
-    flights.slice(0, flights.length - 1).some(
-      (flight, index) => {
-        const nextFlight = flights[index + 1];
-        this.validateFlightPath(flight, nextFlight)
-        this.validateTurnaroundTime(flight, nextFlight);
-      })
-    this.generateViolation();
+      const flightPathTurnaroundTimeInvalid = flights.slice(0, flights.length - 1).some(
+        (flight, index) => {
+          const nextFlight = flights[index + 1];
+          const flightPathInvalid = this.isFlightPathInvalid(flight, nextFlight)
+          const turnAroundTimeInvalid = this.isTurnAroundTimeInvalid(flight, nextFlight);
+          return flightPathInvalid || turnAroundTimeInvalid;
+        })
+      this.generateViolation();
+      invalid = notGroundedAtMidnight || flightPathTurnaroundTimeInvalid
+    }
+    return invalid;
     // return flightPathValid && turnaroundTimeValid && groundedAtMidnightValid;
   }
 
   // Flights list has been pre-sorted
-  private validateGroundedAtMidnight(flights: Flight[]): void {
+  private isNotGroundedAtMidnight(flights: Flight[]): boolean {
     const lastFlight = flights[flights.length - 1];
     const invalid = lastFlight.arrivaltime > twentyFourHoursSeconds;
-    this.generateViolationMessage(invalid, this.groundedAtMidnightError , RotationValidation.GroundedAtMidnight);
+    this.generateViolationMessage(invalid, this.groundedAtMidnightError, RotationValidation.GroundedAtMidnight);
+    return invalid;
     // return this.generateViolation(invalid, 'Flight must be grounded at midnight', this.groundedAtMidnightMessageId);
   }
 
-  private validateFlightPath(flight: Flight, nextFlight: Flight): void {
+  private isFlightPathInvalid(flight: Flight, nextFlight: Flight): boolean {
     const invalid = nextFlight.origin !== flight.destination;
-    this.generateViolationMessage(invalid, this.flightPathError , RotationValidation.FlightPath);
+    this.generateViolationMessage(invalid, this.flightPathError, RotationValidation.FlightPath);
+    return invalid;
     // return this.generateViolation(invalid, 'Invalid origin/destination for subsequent flights', this.flightPathMessageId)
   }
 
-  private validateTurnaroundTime(flight: Flight, nextFlight: Flight): void {
+  private isTurnAroundTimeInvalid(flight: Flight, nextFlight: Flight): boolean {
     const turnaroundTime = nextFlight.departuretime - flight.arrivaltime;
     const invalid = turnaroundTime < twentyMinsSeconds;
-    this.generateViolationMessage(invalid, this.turnaroundTimeError , RotationValidation.TurnaroundTime);
+    this.generateViolationMessage(invalid, this.turnaroundTimeError, RotationValidation.TurnaroundTime);
+    return invalid;
     // return this.generateViolation(invalid, 'Min. turnaround of 20 minutes. Please review rotation', this.turnaroundTimeMessageId)
   }
 

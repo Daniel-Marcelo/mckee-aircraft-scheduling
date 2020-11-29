@@ -7,8 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {ToastModule} from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { SpinnerInterceptorService } from './spinner-interceptor/spinner-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -19,10 +17,9 @@ import { SpinnerInterceptorService } from './spinner-interceptor/spinner-interce
     AircraftSchedulingModule,
     BrowserAnimationsModule,
     ToastModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
   ],
   providers: [MessageService,
-    { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptorService, multi: true }
   ],
   bootstrap: [AppComponent]
 })

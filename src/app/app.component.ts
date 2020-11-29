@@ -8,7 +8,6 @@ import { SpinnerService } from './spinner/spinner.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'aircraft-scheduling-app';
 
   public readonly spinnerVisible$: Observable<boolean>;
 

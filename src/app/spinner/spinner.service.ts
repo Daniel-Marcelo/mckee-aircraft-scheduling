@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, ReplaySubject, Subject } from 'rxjs';
+import { shareReplay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -8,10 +9,12 @@ export class SpinnerService {
 
   public readonly spinnerVisible$: Observable<boolean>;
 
-  private spinnerVisible = new BehaviorSubject<boolean>(false);
+  private spinnerVisible = new BehaviorSubject<boolean>(true);
 
   constructor() {
-    this.spinnerVisible$ = this.spinnerVisible.asObservable();
+    this.spinnerVisible$ = this.spinnerVisible.asObservable().pipe(
+      shareReplay(1)
+    );
    }
 
   showSpinner() {
