@@ -4,9 +4,11 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AircraftSchedulingModule } from './aircraft-scheduling/aircraft-scheduling.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
 import {ToastModule} from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { SpinnerInterceptorService } from './spinner-interceptor/spinner-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -16,9 +18,12 @@ import { MessageService } from 'primeng/api';
     BrowserModule,
     AircraftSchedulingModule,
     BrowserAnimationsModule,
-    ToastModule
+    ToastModule,
+    MatProgressSpinnerModule
   ],
-  providers: [MessageService],
+  providers: [MessageService,
+    { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptorService, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

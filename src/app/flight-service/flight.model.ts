@@ -1,3 +1,5 @@
+import { Pagination } from '../pagination.model';
+
 export interface Flight {
     id: string;
     arrivaltime: number;
@@ -6,17 +8,11 @@ export interface Flight {
     readable_departure: string;
     origin: string;
     destination: string;
-}
+} 
 
 export interface GetFlightsResponse {
     pagination: Pagination;
     data: Flight[];
-}
-
-export interface Pagination {
-    offset: number;
-    limit: number;
-    total: number;
 }
 
 // Sorts flights based on departure date

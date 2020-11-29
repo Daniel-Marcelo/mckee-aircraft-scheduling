@@ -1,2 +1,5 @@
 <p-toast position="bottom-left"></p-toast>
+<ng-container *ngIf="spinnerVisible$ | async; let spinnerVisible">
+    <div class="loader"></div>
+</ng-container>
 <mckee-aircraft-scheduling></mckee-aircraft-scheduling>

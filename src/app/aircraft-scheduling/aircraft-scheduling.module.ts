@@ -4,6 +4,7 @@ import { AircraftSchedulingComponent } from './aircraft-scheduling.component';
 import { AircraftSummaryModule } from '../aircraft-summary/aircraft-summary.module';
 import { FlightSummaryModule } from '../flight-summary/flight-summary.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [AircraftSchedulingComponent],
@@ -11,7 +12,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     CommonModule,
     AircraftSummaryModule,
     FlightSummaryModule,
-    DragDropModule
+    DragDropModule,
+    MatPaginatorModule
   ],
   exports: [AircraftSchedulingComponent]
 })

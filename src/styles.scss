@@ -10,3 +10,37 @@ body {
    margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; 
    background: lightgray;
   }
+
+// To allow '\n' in toast
+  .p-toast-message-text {
+    white-space: pre-line;
+ }
+
+ /* scroll bar
+ */
+ /* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #3498db; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #296adf; 
+}
+
+// Pagination Styles
+div.mat-paginator-range-label {
+  margin: 0 20px 0 10px;
+}
