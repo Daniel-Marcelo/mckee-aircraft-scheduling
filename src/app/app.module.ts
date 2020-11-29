@@ -4,9 +4,9 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AircraftSchedulingModule } from './aircraft-scheduling/aircraft-scheduling.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
 import {ToastModule} from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -16,9 +16,11 @@ import { MessageService } from 'primeng/api';
     BrowserModule,
     AircraftSchedulingModule,
     BrowserAnimationsModule,
-    ToastModule
+    ToastModule,
+    MatProgressSpinnerModule,
   ],
-  providers: [MessageService],
+  providers: [MessageService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
