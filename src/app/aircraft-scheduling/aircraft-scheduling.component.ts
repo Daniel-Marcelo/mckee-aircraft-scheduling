@@ -6,7 +6,7 @@ import { AircraftService } from '../aircrafts-state/aircrafts-state.service';
 import { isScrollBarAtBottom } from '../constants/scroll.constants';
 import { FlightsDragDropProcessorService } from '../drag-drop-processor/flights-drag-drop-processor.service';
 import { RotationDragDropProcessorService } from '../drag-drop-processor/rotation-drag-drop-processor.service';
-import { FlightRotationService } from '../flight-rotation-state/flight-rotation-state.service';
+import { FlightRotationStateService } from '../flight-rotation-state/flight-rotation-state.service';
 import { Flight } from '../flights-state/flight.model';
 import { FlightsStateService } from '../flights-state/flights-state.service';
 
@@ -28,7 +28,7 @@ export class AircraftSchedulingComponent implements OnInit {
   constructor(
     private flightsStateService: FlightsStateService,
     private aircraftService: AircraftService,
-    private flightRotationService: FlightRotationService,
+    private flightRotationService: FlightRotationStateService,
     private flightsDragDropProcessor: FlightsDragDropProcessorService,
     private rotationDragDropProcessor: RotationDragDropProcessorService) {
     this.flights$ = this.flightsStateService.flights$;

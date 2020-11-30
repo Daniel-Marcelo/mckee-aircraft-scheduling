@@ -4,7 +4,7 @@ import { MessageService } from 'primeng/api';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, filter, finalize, map, switchMap, take, tap } from 'rxjs/operators';
 import { flightsUrl } from '../constants/api.constants';
-import { FlightRotationService } from '../flight-rotation-state/flight-rotation-state.service';
+import { FlightRotationStateService } from '../flight-rotation-state/flight-rotation-state.service';
 import { Pagination } from '../shared-model/pagination.model';
 import { SpinnerService } from '../spinner/spinner.service';
 import { Flight, GetFlightsResponse, sortFlights } from './flight.model';
@@ -20,7 +20,7 @@ export class FlightsStateService {
   private flightsResponseSubject = new BehaviorSubject<GetFlightsResponse>(null);
   private isRequestInFlight = false;
 
-  constructor(private http: HttpClient, private messageService: MessageService, private rotationService: FlightRotationService, private spinnerService: SpinnerService) {
+  constructor(private http: HttpClient, private messageService: MessageService, private rotationService: FlightRotationStateService, private spinnerService: SpinnerService) {
     const flightsResponse$ = this.flightsResponseSubject.asObservable().pipe(
       filter(flightResponse => !!flightResponse));
 
