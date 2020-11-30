@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FlightRotationService } from './flight-rotation.service';
+import { FlightRotationService } from './flight-rotation-state.service';
 
 describe('FlightRotationService', () => {
   let service: FlightRotationService;

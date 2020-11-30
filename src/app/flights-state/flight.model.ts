@@ -1,4 +1,4 @@
-import { Pagination } from '../pagination.model';
+import { Pagination } from '../shared-model/pagination.model';
 
 export interface Flight {
     id: string;

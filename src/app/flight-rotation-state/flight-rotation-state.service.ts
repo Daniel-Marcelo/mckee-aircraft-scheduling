@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { Flight, sortFlights } from '../flight-service/flight.model';
+import { Flight, sortFlights } from '../flights-state/flight.model';
 
+// Maintains the state of the flight rotation
 @Injectable({
   providedIn: 'root'
 })

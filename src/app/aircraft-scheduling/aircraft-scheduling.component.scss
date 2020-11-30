@@ -6,164 +6,49 @@
 
 header {
     height: 50px;
-    display: flex;
     justify-content: center;
     align-items: center;
-    // border: 1px solid blue;
 }
 
-section {
+.main-content {
     flex: 8;
-    display: flex;
     padding: 20px 80px 20px 80px;
-    // border: 1px solid red;
-}
 
-.title-container {
-
-    display: flex;
-    justify-content: center;
-    .title {
-        // border: 1px solid blue;
+    .title-container {
+        justify-content: center;
+        padding-bottom: 10px;
     }
-}
-
-.content {
-    display: flex;
-    // border: 1px solid black;
-    flex: 1;
-}
-
-
-.aircraft {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    .content {
-        padding: 10px;
-    }
-}
-
-.rotation {
-    // border: 1px solid    green;
-    flex: 3;
-    display: flex;
-    flex-direction: column;
-    padding: 0px 20px;
 
     .content {
         flex: 1 1 auto;
         overflow-y: auto;
         height: 0px;
-        flex-direction: column;
     }
 
-    .example-list {
-        flex: 7;
-    }
-
-    .timeline-container {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        padding: 10px;
-
-        div {
+    .aircrafts {
+        flex: 2;
+        .content {
+            padding: 10px;
+            background: rgba(234,245,249, 0.3);
             border-radius: 5px;
-            margin-right: 5px;
-        }
-
-        .timeline-line-container {
-            margin-right: 0;
-        }
-
-        div:last-child {
-            margin-right: 0px;
         }
     }
-}
+    
+    .rotation {
+        flex: 3;
+        padding: 0px 20px;
 
-.available-flights {
-    // border: 1px solid purple;
-    flex: 2;
-    display: flex;
-    flex-direction: column;
-
-    .content {
-        flex: 1 1 auto;
-        overflow-y: auto;
-        height: 0px;
+        mckee-flights-list {
+            overflow-y: auto;
+            height: 0px;
+        }
     }
-}
-
-.aircraft-summary {
-    flex: 1;
-}
-
-.example-list {
-    flex: 1;
-    overflow-y: auto;
-    padding: 10px;
-}
-
-
-.example-box {
-    cursor: pointer;
-  }
-  
-  .cdk-drag-preview {
-    box-sizing: border-box;
-    border-radius: 4px;
-    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-                0 8px 10px 1px rgba(0, 0, 0, 0.14),
-                0 3px 14px 2px rgba(0, 0, 0, 0.12);
-  }
-  
-  .cdk-drag-placeholder {
-    opacity: 0;
-  }
-  
-  .cdk-drag-animating {
-    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-  }
-  
-  .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
-    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-  }
-
-mat-paginator {
-    border-radius: 5px;
-}
-
-
-.active {
-    background: green;
-}
-
-.idle {
-    background: grey;
-}
-
-.turnaroundTime {
-    background: purple;
-}
-
-.timeline-line-container {
-    padding: 5px 0 10px 0;
-}
-
-.timeline-line {
-    height: 2px;
-    margin-right: 0;
-    background: black;
-}
-
-.slots-container {
-    display: flex;
-    flex-basis: 100%;
-}
-
-.time-container {
-    display: flex;  
-    justify-content: space-between;
+    
+    .available-flights {
+        flex: 2;
+    }
+    
+    .aircraft-summary {
+        flex: 1;
+    }
 }

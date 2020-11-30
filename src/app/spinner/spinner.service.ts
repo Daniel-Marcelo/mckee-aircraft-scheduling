@@ -1,27 +1,24 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, ReplaySubject, Subject } from 'rxjs';
-import { shareReplay } from 'rxjs/operators';
+import { BehaviorSubject, Observable} from 'rxjs';
 
+// Used to show and hide the app-level progress spinner
 @Injectable({
   providedIn: 'root'
 })
 export class SpinnerService {
 
   public readonly spinnerVisible$: Observable<boolean>;
-
   private spinnerVisible = new BehaviorSubject<boolean>(true);
 
   constructor() {
-    this.spinnerVisible$ = this.spinnerVisible.asObservable().pipe(
-      shareReplay(1)
-    );
+    this.spinnerVisible$ = this.spinnerVisible.asObservable();
    }
 
-  showSpinner() {
+  showSpinner(): void {
     this.spinnerVisible.next(true);
   }
 
-  hideSpinner() {
+  hideSpinner(): void {
     this.spinnerVisible.next(false);
   }
 }

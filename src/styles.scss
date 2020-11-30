@@ -1,46 +1,32 @@
-/* You can add global styles to this file, and also import other style files */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
   
-html, body { height: 100%; }
+html, body { 
+  height: 100%; 
+}
+
 body {
-   margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; 
+   font-family: Roboto, "Helvetica Neue", sans-serif; 
    background: lightgray;
-  }
+}
 
 // To allow '\n' in toast
   .p-toast-message-text {
     white-space: pre-line;
  }
 
- /* scroll bar
- */
- /* width */
-::-webkit-scrollbar {
-  width: 10px;
-}
+ .flex {
+   display: flex;
+ }
 
-/* Track */
-::-webkit-scrollbar-track {
-  background: #f1f1f1; 
-  border-radius: 10px;
-}
- 
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #3498db; 
-  border-radius: 10px;
-}
+ .flex-column {
+  display: flex;
+  flex-direction: column;
+ }
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #296adf; 
-}
-
-// Pagination Styles
-div.mat-paginator-range-label {
-  margin: 0 20px 0 10px;
-}
+ .flex-1 {
+   flex: 1;
+ }

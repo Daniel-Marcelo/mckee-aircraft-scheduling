@@ -1,9 +1,15 @@
 import { Injectable } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { Flight } from '../flight-service/flight.model';
-import { twentyFourHoursSeconds, twentyMinsSeconds } from '../time.constants';
+import { Flight } from '../flights-state/flight.model';
+import { twentyFourHoursSeconds, twentyMinsSeconds } from '../constants/time.constants';
 import { RotationValidation } from './rotation-validator.model';
 
+/* 
+ * Responsible for enforcing the validations:
+ * 1. Min. Turnaround time of 20 mins between flights.
+ * 2. Flights cannot teleport between locations
+ * 3. Flight must be grounded at midnight
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -12,12 +18,11 @@ export class RotationValidatorService {
   private readonly flightPathError = 'Invalid origin/dest. for subsequent flights.';
   private readonly turnaroundTimeError = 'Min. turnaround time of 20 minutes.';
   private readonly groundedAtMidnightError = 'Flight must be grounded at midnight.';
-
-  private validationMessageMap = new Map<RotationValidation, string>([])
+  private validationMessageMap = new Map<RotationValidation, string>([]);
 
   constructor(private messageService: MessageService) { }
 
-  validateRotation(flights: Flight[]): boolean {
+  validateRotation(flights: Flight[]) {
     this.messageService.clear();
     this.validationMessageMap.clear();
     let invalid = false;
@@ -35,7 +40,6 @@ export class RotationValidatorService {
       invalid = notGroundedAtMidnight || flightPathTurnaroundTimeInvalid
     }
     return invalid;
-    // return flightPathValid && turnaroundTimeValid && groundedAtMidnightValid;
   }
 
   // Flights list has been pre-sorted
@@ -44,14 +48,12 @@ export class RotationValidatorService {
     const invalid = lastFlight.arrivaltime > twentyFourHoursSeconds;
     this.generateViolationMessage(invalid, this.groundedAtMidnightError, RotationValidation.GroundedAtMidnight);
     return invalid;
-    // return this.generateViolation(invalid, 'Flight must be grounded at midnight', this.groundedAtMidnightMessageId);
   }
 
   private isFlightPathInvalid(flight: Flight, nextFlight: Flight): boolean {
     const invalid = nextFlight.origin !== flight.destination;
     this.generateViolationMessage(invalid, this.flightPathError, RotationValidation.FlightPath);
     return invalid;
-    // return this.generateViolation(invalid, 'Invalid origin/destination for subsequent flights', this.flightPathMessageId)
   }
 
   private isTurnAroundTimeInvalid(flight: Flight, nextFlight: Flight): boolean {
@@ -59,7 +61,6 @@ export class RotationValidatorService {
     const invalid = turnaroundTime < twentyMinsSeconds;
     this.generateViolationMessage(invalid, this.turnaroundTimeError, RotationValidation.TurnaroundTime);
     return invalid;
-    // return this.generateViolation(invalid, 'Min. turnaround of 20 minutes. Please review rotation', this.turnaroundTimeMessageId)
   }
 
   private generateViolationMessage(invalid: boolean, message: string, validation: RotationValidation): void {
@@ -71,14 +72,7 @@ export class RotationValidatorService {
   private generateViolation(): void {
     const message = Array.from(this.validationMessageMap.values()).join('\n');
     if (message) {
-      this.messageService.add({ severity: 'error', summary: 'Violation(s) - Please Review Rotation', detail: `${message}`, sticky: true });
+      this.messageService.add({ severity: 'error', summary: 'Violation(s) - Flight Not Added', detail: `${message}`, sticky: true });
     }
   }
-
-  // private generateViolation(invalid: boolean, message: string, messageKey: string): boolean {
-  //   if (invalid) {
-  //     this.messageService.add({ severity: 'error', summary: 'Violation', detail: `${message}. Please review rotation`, sticky: true });
-  //   }
-  //   return invalid;
-  // }
 }
