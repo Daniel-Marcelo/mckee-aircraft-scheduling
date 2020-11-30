@@ -23,16 +23,7 @@ export class FlightsListComponent {
   @Output()
   public flightDropped = new EventEmitter<CdkDragDrop<Flight[]>>();
 
-  @Output()
-  public loadNextPage = new EventEmitter<void>();
-
   availableFlightDropped(event: CdkDragDrop<Flight[]>): void {
     this.flightDropped.next(event);
-  }
-
-  scrollFlights(listElement: HTMLElement): void {
-    if (Math.ceil(listElement.scrollTop) >= listElement.scrollHeight - listElement.offsetHeight) {
-      this.loadNextPage.next();
-    }
   }
 }

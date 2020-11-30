@@ -3,7 +3,7 @@
         4th January 2018
     </span>
 </header>
-<section class="flex">
+<section class="main-content flex">
     <div class="aircrafts flex-column">
         <div class="title-container flex">
             <span class="title">Aircraft</span>
@@ -34,7 +34,7 @@
         <div class="title-container flex">
             <span class="title">Flights</span>
         </div>
-        <div class="content flex flex-content" #availableFlightsList>
+        <div class="content flex-column" #availableFlightsList (scroll)="scrollFlights(availableFlightsList)">
             <ng-container *ngIf="flights$ | async; let flights">
                 <mckee-flights-list [listId]="'flights-list'" [connectedTo]="'rotation-list'" 
                 [flights]="flights" (flightDropped)="availableFlightDropped($event)" (loadNextPage)="getNextPage()"></mckee-flights-list>

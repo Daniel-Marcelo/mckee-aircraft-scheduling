@@ -10,37 +10,45 @@ header {
     align-items: center;
 }
 
-section {
+.main-content {
     flex: 8;
     padding: 20px 80px 20px 80px;
-}
 
-.title-container {
-    justify-content: center;
-}
-
-.content {
-    flex: 1;
-    overflow-y: auto;
-    height: 0px;
-}
-
-.aircrafts {
-    flex: 1;
-    .content {
-        padding: 10px;
+    .title-container {
+        justify-content: center;
+        padding-bottom: 10px;
     }
-}
 
-.rotation {
-    flex: 3;
-    padding: 0px 20px;
-}
+    .content {
+        flex: 1 1 auto;
+        overflow-y: auto;
+        height: 0px;
+    }
 
-.available-flights {
-    flex: 2;
-}
+    .aircrafts {
+        flex: 1;
+        .content {
+            padding: 10px;
+            background: rgba(234,245,249, 0.3);
+            border-radius: 5px;
+        }
+    }
+    
+    .rotation {
+        flex: 3;
+        padding: 0px 20px;
 
-.aircraft-summary {
-    flex: 1;
+        mckee-flights-list {
+            overflow-y: auto;
+            height: 0px;
+        }
+    }
+    
+    .available-flights {
+        flex: 2;
+    }
+    
+    .aircraft-summary {
+        flex: 1;
+    }
 }

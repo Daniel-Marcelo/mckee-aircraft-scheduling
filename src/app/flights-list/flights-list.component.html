@@ -1,6 +1,6 @@
-<div [id]="listId" #availableFlightsList cdkDropList #todoList="cdkDropList" [cdkDropListData]="flights"
+<div [id]="listId" cdkDropList #todoList="cdkDropList" [cdkDropListData]="flights"
     [cdkDropListConnectedTo]="[connectedTo]" class="draggable-list"
-    (cdkDropListDropped)="availableFlightDropped($event)" (scroll)="scrollFlights(availableFlightsList)">
+    (cdkDropListDropped)="availableFlightDropped($event)">
     <div cdkDrag *ngFor="let flight of flights">
         <mckee-flight-summary [flight]="flight"></mckee-flight-summary>
     </div>
