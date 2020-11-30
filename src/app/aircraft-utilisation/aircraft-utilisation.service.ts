@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { FlightRotationService } from '../flight-rotation/flight-rotation.service';
 import { Flight } from '../flight-service/flight.model';
-import { twentyFourHoursSeconds } from '../time.constants';
+import { twentyFourHoursSeconds } from '../constants/time.constants';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,6 @@ import { twentyFourHoursSeconds } from '../time.constants';
 export class AircraftUtilisationService {
 
   public readonly aircraftUtilisation$: Observable<number>;
-
   private aircraftUtilisation = new BehaviorSubject(0);
 
   constructor(private flightRotationService: FlightRotationService) {

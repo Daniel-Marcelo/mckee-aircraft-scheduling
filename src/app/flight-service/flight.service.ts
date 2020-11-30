@@ -2,10 +2,10 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { catchError, filter, finalize, map, switchMap, take, tap, withLatestFrom } from 'rxjs/operators';
-import { flightsUrl } from '../api.constants';
+import { catchError, filter, finalize, map, switchMap, take, tap } from 'rxjs/operators';
+import { flightsUrl } from '../constants/api.constants';
 import { FlightRotationService } from '../flight-rotation/flight-rotation.service';
-import { Pagination } from '../pagination.model';
+import { Pagination } from './pagination.model';
 import { SpinnerService } from '../spinner/spinner.service';
 import { Flight, GetFlightsResponse, sortFlights } from './flight.model';
 
@@ -33,46 +33,49 @@ export class FlightService {
     );
   }
 
-  getNextPageOfData() {
+  getNextPageOfData(): Observable<GetFlightsResponse> {
     return this.pagination$.pipe(take(1),
       filter(pagination => !this.isRequestInFlight && !this.isLastPageOfData(pagination)),
       tap(pagination => this.isRequestInFlight = true),
-      switchMap(pagination => this.getFlights(pagination.offset + pagination.limit, pagination.limit))
+      switchMap(pagination => this.getFlights(pagination.offset + pagination.limit))
     );
   }
 
-  private isLastPageOfData(pagination: Pagination) {
-    return pagination.offset + pagination.limit >= pagination.total;
-  }
-
-  getFlights(offset = 0, limit = 25): Observable<GetFlightsResponse> {
+  getFlights(offset = 0): Observable<GetFlightsResponse> {
     return of(null).pipe(
       tap(() => this.spinnerService.showSpinner()),
-      switchMap(() => this.http.get<GetFlightsResponse>(flightsUrl(offset, limit))),
-      tap(flightsInfo => console.log("Successfully retrieved list of available flights")),
-      withLatestFrom(this.rotationService.flights$),
-      take(1),
-      tap(([flightsResponse, rotationFlights]) => this.handleSuccess(flightsResponse, rotationFlights, offset)),
-      catchError((error: HttpErrorResponse) => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: `Error retrieving list of available flights`, sticky: true });
-        console.error('Failed to retrieve list of available flights');
-        return of(null);
-      }),
+      switchMap(() => this.http.get<GetFlightsResponse>(flightsUrl(offset))),
+      tap(flightsResponse => this.handleSuccess(flightsResponse, offset)),
+      catchError((error: HttpErrorResponse) => this.handleError(error)),
       finalize(() => this.spinnerService.hideSpinner())
     )
   }
 
-  handleSuccess(flightsResponse: GetFlightsResponse, rotationFlights: Flight[], offset: number) {
-    this.isRequestInFlight = false;
+  private isLastPageOfData(pagination: Pagination): boolean {
+    return pagination.offset + pagination.limit >= pagination.total;
+  }
+
+  private handleSuccess(flightsResponse: GetFlightsResponse, offset: number): void {
+    console.log("Successfully retrieved list of available flights")
     let flights = flightsResponse.data;
+    this.isRequestInFlight = false;
+
     if (offset !== 0) {
-      const existingData = this.flightsResponseSubject.getValue().data;
-      flights = [...existingData, ...flightsResponse.data];
+      const existingFlights = this.flightsResponseSubject.getValue().data;
+      flights = [...existingFlights, ...flightsResponse.data];
     }
 
     this.flightsResponseSubject.next({
       ...flightsResponse,
       data: flights
     });
+
+  }
+
+  private handleError(error: HttpErrorResponse): Observable<GetFlightsResponse> {
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: `Error retrieving list of available flights`, sticky: true });
+    console.error('Failed to retrieve list of available flights');
+    console.error(error);
+    return of(null);
   }
 }

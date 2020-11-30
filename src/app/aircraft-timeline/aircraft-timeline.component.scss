@@ -1,0 +1,46 @@
+:host {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+
+    .time-container {
+        display: flex;  
+        justify-content: space-between;
+    }
+
+    .timeline-line-container {
+        padding: 5px 0 10px 0;
+
+        .timeline-line {
+            height: 2px;
+            margin-right: 0;
+            background: black;
+        }
+    }
+
+    .slots-container {
+        display: flex;
+        flex-basis: 100%;
+        
+        .timeslot {
+            border-radius: 5px;
+        }
+
+        .timeslot:not(:last-child) {
+            margin-right: 5px;
+        }    
+        
+        .active {
+            background: green;
+        }
+        
+        .idle {
+            background: grey;
+        }
+        
+        .turnaroundTime {
+            background: purple;
+        }
+    }
+}

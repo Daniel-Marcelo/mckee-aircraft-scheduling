@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, filter, finalize, map, switchMap, tap } from 'rxjs/operators';
-import { aircraftsUrl } from '../api.constants';
+import { aircraftsUrl } from '../constants/api.constants';
 import { SpinnerService } from '../spinner/spinner.service';
 import { Aircraft, GetAircraftResponse } from './aircraft.model';
 
@@ -25,7 +25,7 @@ export class AircraftService {
     return of(null).pipe(
       tap(() => this.spinnerService.showSpinner()),
       switchMap(() =>this.http.get<GetAircraftResponse>(aircraftsUrl)),
-      tap(aircraftsInfo => console.log("Successfully retrieved list of available aircrafts")),
+      tap(() => console.log("Successfully retrieved list of available aircrafts")),
       tap(aircraftsInfo => this.aircraftResponse$.next(aircraftsInfo)),
       catchError(error => {
         console.error('Failed to retrieve list of available aircrafts');

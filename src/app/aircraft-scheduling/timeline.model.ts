@@ -1,4 +1,4 @@
-import { twentyFourHoursSeconds } from '../time.constants'
+import { twentyFourHoursSeconds } from '../constants/time.constants'
 
 export interface TimelineSlot {
     percentOf24Hours: string;

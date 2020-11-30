@@ -1,0 +1,21 @@
+<div class="time-container">
+    <div>00:00</div>
+    <div>12:00</div>
+    <div>00:00</div>
+</div>
+<div class="timeline-line-container">
+    <div class="timeline-line"></div>
+</div>
+<div class="slots-container">
+    <ng-container *ngIf="timelineSlots$ | async; let timelineSlots">
+        <ng-container *ngIf="timelineSlots?.length > 0; else emptyTimeline">
+            <div *ngFor="let timeslot of timelineSlots" [style.width]="timeslot.percentOf24Hours"
+                class="timeslot" [ngClass]="timeslot.action">
+            </div>
+        </ng-container>
+    </ng-container>
+
+    <ng-template #emptyTimeline>
+        <div [style.width]="'100%'" class="timeslot idle"></div>
+    </ng-template>
+</div>

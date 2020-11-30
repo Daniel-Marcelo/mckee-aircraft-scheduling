@@ -1,6 +1,13 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    flex: 7;
+}
 
-.example-box {
-  cursor: pointer;
+.draggable-list {
+  flex: 7;
+  overflow-y: auto;
+  padding: 10px;
 }
 
 .cdk-drag-preview {
@@ -19,6 +26,6 @@
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+.draggable-list.cdk-drop-list-dragging .draggable-flight:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }

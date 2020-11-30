@@ -1,21 +1,38 @@
-import { Component, OnInit } from '@angular/core';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Flight } from '../flight-service/flight.model';
-import { FlightService } from '../flight-service/flight.service';
 
 @Component({
   selector: 'mckee-flights-list',
   templateUrl: './flights-list.component.html',
   styleUrls: ['./flights-list.component.scss']
 })
-export class FlightsListComponent implements OnInit {
+export class FlightsListComponent {
+  public readonly flights$: Observable<Flight[]>;
 
-  public readonly flights$: Observable<Flight[]>
-  constructor(private flightService: FlightService) {
-    this.flights$ = this.flightService.flights$;
+  @Input()
+  public flights: Flight[];
+
+  @Input()
+  listId: string;
+
+  @Input()
+  connectedTo: string;
+
+  @Output()
+  public flightDropped = new EventEmitter<CdkDragDrop<Flight[]>>();
+
+  @Output()
+  public loadNextPage = new EventEmitter<void>();
+
+  availableFlightDropped(event: CdkDragDrop<Flight[]>): void {
+    this.flightDropped.next(event);
   }
 
-  ngOnInit(): void {
-    this.flightService.getFlights().pipe().subscribe();
+  scrollFlights(listElement: HTMLElement): void {
+    if (Math.ceil(listElement.scrollTop) >= listElement.scrollHeight - listElement.offsetHeight) {
+      this.loadNextPage.next();
+    }
   }
 }

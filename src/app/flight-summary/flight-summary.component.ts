@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Flight } from '../flight-service/flight.model';
 
 @Component({
@@ -7,14 +7,8 @@ import { Flight } from '../flight-service/flight.model';
   styleUrls: ['./flight-summary.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FlightSummaryComponent implements OnInit {
+export class FlightSummaryComponent {
 
   @Input()
   public flight: Flight;
-  
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
 }

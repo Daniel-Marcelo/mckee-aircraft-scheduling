@@ -1,14 +1,14 @@
-<header>
+<header class="flex">
     <span>
         4th January 2018
     </span>
 </header>
-<section>
-    <div class="aircraft">
-        <div class="title-container">
+<section class="flex">
+    <div class="aircrafts flex-column">
+        <div class="title-container flex">
             <span class="title">Aircraft</span>
         </div>
-        <div class="content">
+        <div class="content flex-column">
             <ng-container *ngIf="aircrafts$ | async; let aircrafts">
                 <ng-container *ngFor="let aircraft of aircrafts">
                     <mckee-aircraft-summary class="aircraft-summary" [aircraft]="aircraft"></mckee-aircraft-summary>
@@ -17,65 +17,28 @@
         </div>
     </div>
 
-
-
-    <div class="rotation">
-        <div class="title-container">
+    <div class="rotation flex-column">
+        <div class="title-container flex">
             <span class="title">Rotation ABCDE</span>
         </div>
-        <div class="content">
+        <div class="content flex-column">
             <ng-container *ngIf="flightsInRotation$ | async; let flightsInRotation">
-                <div id="rotation-list" cdkDropList #rotationList="cdkDropList" [cdkDropListData]="flightsInRotation"
-                    [cdkDropListConnectedTo]="['flights-list']" class="example-list"
-                    (cdkDropListDropped)="rotationFlightDropped($event)">
-                    <div cdkDrag class="example-box" *ngFor="let flight of flightsInRotation">
-                        <mckee-flight-summary [flight]="flight"></mckee-flight-summary>
-                    </div>
-                </div>
+                <mckee-flights-list [listId]="'rotation-list'" [connectedTo]="'flights-list'" 
+                [flights]="flightsInRotation" (flightDropped)="rotationFlightDropped($event)"></mckee-flights-list>
             </ng-container>
-            <div class="timeline-container">
-                <div class="time-container">
-                    <div class="midnight">00:00</div>
-                    <div class="midday">12:00</div>
-                    <div>00:00</div>
-                </div>
-                <div class="timeline-line-container">
-                    <div class="timeline-line"></div>
-                </div>
-                <div class="slots-container">
-                    <ng-container *ngIf="timelineSlots.length > 0; else emptyTimeline">
-                        <div *ngFor="let timeslot of timelineSlots" [style.width]="timeslot.percentOf24Hours"
-                            [ngClass]="timeslot.action">
-                        </div>
-                    </ng-container> 
-                </div>
-            </div>
+            <mckee-aircraft-timeline></mckee-aircraft-timeline>
         </div>
     </div>
 
-    <ng-template #emptyTimeline>
-        <div [style.width]="'100%'" class="idle"></div>
-    </ng-template>
-
-
-    <div class="available-flights">
-        <div class="title-container">
+    <div class="available-flights flex-column">
+        <div class="title-container flex">
             <span class="title">Flights</span>
         </div>
-        <div #availableFlightsList class="content" (scroll)="scrollFlights(availableFlightsList)">
+        <div class="content flex flex-content" #availableFlightsList>
             <ng-container *ngIf="flights$ | async; let flights">
-                <div id="flights-list" #availableFlightsList (scroll)="scrollFlights(availableFlightsList)" cdkDropList
-                    #todoList="cdkDropList" [cdkDropListData]="flights" [cdkDropListConnectedTo]="['rotation-list']"
-                    class="example-list" (cdkDropListDropped)="availableFlightDropped($event)">
-                    <div cdkDrag class="example-box" *ngFor="let flight of flights">
-                        <mckee-flight-summary [flight]="flight"></mckee-flight-summary>
-                    </div>
-                </div>
+                <mckee-flights-list [listId]="'flights-list'" [connectedTo]="'rotation-list'" 
+                [flights]="flights" (flightDropped)="availableFlightDropped($event)" (loadNextPage)="getNextPage()"></mckee-flights-list>
             </ng-container>
-            <!-- <ng-container *ngIf="pagination$ | async; let pagination">
-                <mat-paginator [length]="pagination.total" [pageSize]="pagination.limit" (page)="getPage($event)">
-                </mat-paginator>
-            </ng-container> -->
         </div>
     </div>
 </section>
