@@ -34,6 +34,8 @@ export class FlightService {
   }
 
   getNextPageOfData(): Observable<GetFlightsResponse> {
+    // Will not attempt to get the next page of data if there is a request running
+    // Or we have the last page of data
     return this.pagination$.pipe(take(1),
       filter(pagination => !this.isRequestInFlight && !this.isLastPageOfData(pagination)),
       tap(pagination => this.isRequestInFlight = true),
@@ -69,7 +71,6 @@ export class FlightService {
       ...flightsResponse,
       data: flights
     });
-
   }
 
   private handleError(error: HttpErrorResponse): Observable<GetFlightsResponse> {
