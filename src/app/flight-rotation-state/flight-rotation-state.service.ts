@@ -7,7 +7,7 @@ import { Flight, sortFlights } from '../flights-state/flight.model';
 @Injectable({
   providedIn: 'root'
 })
-export class FlightRotationService {
+export class FlightRotationStateService {
 
   public readonly flights$: Observable<Flight[]>;
   private flights = new BehaviorSubject<Flight[]>([]);

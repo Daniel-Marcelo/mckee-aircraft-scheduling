@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import { FlightRotationService } from '../flight-rotation-state/flight-rotation-state.service';
+import { FlightRotationStateService } from '../flight-rotation-state/flight-rotation-state.service';
 import { Flight } from '../flights-state/flight.model';
 import { twentyFourHoursSeconds } from '../constants/time.constants';
 
@@ -14,7 +14,7 @@ export class AircraftUtilisationCalculatorService {
   public readonly aircraftUtilisation$: Observable<number>;
   private aircraftUtilisation = new BehaviorSubject(0);
 
-  constructor(private flightRotationService: FlightRotationService) {
+  constructor(private flightRotationService: FlightRotationStateService) {
     this.aircraftUtilisation$ = this.aircraftUtilisation.asObservable();
    }
 
