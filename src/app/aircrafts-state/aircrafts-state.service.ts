@@ -7,6 +7,7 @@ import { aircraftsUrl } from '../constants/api.constants';
 import { SpinnerService } from '../spinner/spinner.service';
 import { Aircraft, GetAircraftResponse } from './aircraft.model';
 
+// Responsible for maintaining the state of the aircrafts list.
 @Injectable({
   providedIn: 'root'
 })

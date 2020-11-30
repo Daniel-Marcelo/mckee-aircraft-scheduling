@@ -1,14 +1,19 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Aircraft } from '../aircraft-service/aircraft.model';
-import { AircraftService } from '../aircraft-service/aircraft.service';
+import { Aircraft } from '../aircrafts-state/aircraft.model';
+import { AircraftService } from '../aircrafts-state/aircrafts-state.service';
+import { isScrollBarAtBottom } from '../constants/scroll.constants';
 import { FlightsDragDropProcessorService } from '../drag-drop-processor/flights-drag-drop-processor.service';
 import { RotationDragDropProcessorService } from '../drag-drop-processor/rotation-drag-drop-processor.service';
-import { FlightRotationService } from '../flight-rotation/flight-rotation.service';
-import { Flight } from '../flight-service/flight.model';
-import { FlightService } from '../flight-service/flight.service';
+import { FlightRotationService } from '../flight-rotation-state/flight-rotation-state.service';
+import { Flight } from '../flights-state/flight.model';
+import { FlightsStateService } from '../flights-state/flights-state.service';
 
+/*
+ * Component serves as the container for the 3 main sections of the app.
+ * The list of aircrafts, flights in the rotation and available flights.
+ */
 @Component({
   selector: 'mckee-aircraft-scheduling',
   templateUrl: './aircraft-scheduling.component.html',
@@ -21,18 +26,18 @@ export class AircraftSchedulingComponent implements OnInit {
   public readonly flightsInRotation$: Observable<Flight[]>;
 
   constructor(
-    private flightService: FlightService,
+    private flightsStateService: FlightsStateService,
     private aircraftService: AircraftService,
     private flightRotationService: FlightRotationService,
     private flightsDragDropProcessor: FlightsDragDropProcessorService,
     private rotationDragDropProcessor: RotationDragDropProcessorService) {
-    this.flights$ = this.flightService.flights$;
+    this.flights$ = this.flightsStateService.flights$;
     this.aircrafts$ = this.aircraftService.aircrafts$;
     this.flightsInRotation$ = this.flightRotationService.flights$;
   }
 
   ngOnInit(): void {
-    this.flightService.getFlights().subscribe();
+    this.flightsStateService.getFlights().subscribe();
     this.aircraftService.getAircrafts().subscribe();
   }
 
@@ -45,12 +50,12 @@ export class AircraftSchedulingComponent implements OnInit {
   }
 
   getNextPage(): void {
-    this.flightService.getNextPageOfData().subscribe();
+    this.flightsStateService.getNextPageOfData().subscribe();
   }
 
   scrollFlights(listElement: HTMLElement): void {
-    if (Math.ceil(listElement.scrollTop) >= listElement.scrollHeight - listElement.offsetHeight) {
-      this.flightService.getNextPageOfData().subscribe();
+    if (isScrollBarAtBottom(listElement)) {
+      this.flightsStateService.getNextPageOfData().subscribe();
     }
   }
 }

@@ -4,15 +4,16 @@ import { MessageService } from 'primeng/api';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, filter, finalize, map, switchMap, take, tap } from 'rxjs/operators';
 import { flightsUrl } from '../constants/api.constants';
-import { FlightRotationService } from '../flight-rotation/flight-rotation.service';
-import { Pagination } from './pagination.model';
+import { FlightRotationService } from '../flight-rotation-state/flight-rotation-state.service';
+import { Pagination } from '../shared-model/pagination.model';
 import { SpinnerService } from '../spinner/spinner.service';
 import { Flight, GetFlightsResponse, sortFlights } from './flight.model';
 
+// Responsible for maintaining the state of available flights.
 @Injectable({
   providedIn: 'root'
 })
-export class FlightService {
+export class FlightsStateService {
 
   public readonly flights$: Observable<Flight[]>
   public readonly pagination$: Observable<Pagination>;

@@ -1,9 +1,15 @@
 import { Injectable } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { Flight } from '../flight-service/flight.model';
+import { Flight } from '../flights-state/flight.model';
 import { twentyFourHoursSeconds, twentyMinsSeconds } from '../constants/time.constants';
 import { RotationValidation } from './rotation-validator.model';
 
+/* 
+ * Responsible for enforcing the validations:
+ * 1. Min. Turnaround time of 20 mins between flights.
+ * 2. Flights cannot teleport between locations
+ * 3. Flight must be grounded at midnight
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -16,7 +22,7 @@ export class RotationValidatorService {
 
   constructor(private messageService: MessageService) { }
 
-  validateRotation(flights: Flight[]): boolean {
+  validateRotation(flights: Flight[]) {
     this.messageService.clear();
     this.validationMessageMap.clear();
     let invalid = false;

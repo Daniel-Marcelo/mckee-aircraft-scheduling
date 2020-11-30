@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Flight } from '../flight-service/flight.model';
+import { Flight } from '../flights-state/flight.model';
 
+// Single flight summary wrapped in a mat-card
 @Component({
   selector: 'mckee-flight-summary',
   templateUrl: './flight-summary.component.html',

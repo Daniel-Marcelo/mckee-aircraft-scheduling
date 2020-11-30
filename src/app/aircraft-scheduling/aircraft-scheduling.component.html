@@ -4,6 +4,8 @@
     </span>
 </header>
 <section class="main-content flex">
+
+    <!-- Aircrafts List -->
     <div class="aircrafts flex-column">
         <div class="title-container flex">
             <span class="title">Aircraft</span>
@@ -17,27 +19,32 @@
         </div>
     </div>
 
+    <!-- List of flights in rotation -->
     <div class="rotation flex-column">
         <div class="title-container flex">
-            <span class="title">Rotation ABCDE</span>
+            <ng-container *ngIf="aircrafts$ | async; let aircrafts">
+                <span class="title">Rotation {{aircrafts[0]?.ident}}</span>
+            </ng-container>
         </div>
         <div class="content flex-column">
             <ng-container *ngIf="flightsInRotation$ | async; let flightsInRotation">
-                <mckee-flights-list [listId]="'rotation-list'" [connectedTo]="'flights-list'" 
-                [flights]="flightsInRotation" (flightDropped)="rotationFlightDropped($event)"></mckee-flights-list>
+                <mckee-flights-list [listId]="'rotation-list'" [connectedTo]="'flights-list'"
+                    [flights]="flightsInRotation" (flightDropped)="rotationFlightDropped($event)"></mckee-flights-list>
             </ng-container>
             <mckee-aircraft-timeline></mckee-aircraft-timeline>
         </div>
     </div>
 
+    <!-- List of available flights -->
     <div class="available-flights flex-column">
         <div class="title-container flex">
             <span class="title">Flights</span>
         </div>
         <div class="content flex-column" #availableFlightsList (scroll)="scrollFlights(availableFlightsList)">
             <ng-container *ngIf="flights$ | async; let flights">
-                <mckee-flights-list [listId]="'flights-list'" [connectedTo]="'rotation-list'" 
-                [flights]="flights" (flightDropped)="availableFlightDropped($event)" (loadNextPage)="getNextPage()"></mckee-flights-list>
+                <mckee-flights-list [listId]="'flights-list'" [connectedTo]="'rotation-list'" [flights]="flights"
+                    (flightDropped)="availableFlightDropped($event)" (loadNextPage)="getNextPage()">
+                </mckee-flights-list>
             </ng-container>
         </div>
     </div>

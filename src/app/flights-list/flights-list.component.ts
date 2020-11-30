@@ -1,8 +1,9 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Flight } from '../flight-service/flight.model';
+import { Flight } from '../flights-state/flight.model';
 
+// Shows a draggable list of flights wrapped in mat-card components
 @Component({
   selector: 'mckee-flights-list',
   templateUrl: './flights-list.component.html',

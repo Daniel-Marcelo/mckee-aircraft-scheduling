@@ -1,7 +1,7 @@
 <mat-card>
     <div class="summary-container">
-        <div class="summary-info"><span>{{aircraft.ident}}</span></div>
-        <div class="summary-info">
+        <div class="summary-info flex"><span>{{aircraft.ident}}</span></div>
+        <div class="summary-info flex">
             <ng-container *ngIf="aircraftUtilisation$ | async as aircraftUtilisation; else noUtilisation">
                 <span>{{aircraftUtilisation | percent}} </span>
             </ng-container>

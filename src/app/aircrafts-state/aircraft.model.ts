@@ -1,4 +1,4 @@
-import { Pagination } from '../flight-service/pagination.model';
+import { Pagination } from '../shared-model/pagination.model';
 
 export interface GetAircraftResponse {
     pagination: Pagination;

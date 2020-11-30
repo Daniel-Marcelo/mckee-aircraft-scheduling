@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import { FlightRotationService } from '../flight-rotation/flight-rotation.service';
-import { Flight } from '../flight-service/flight.model';
+import { FlightRotationService } from '../flight-rotation-state/flight-rotation-state.service';
+import { Flight } from '../flights-state/flight.model';
 import { twentyFourHoursSeconds } from '../constants/time.constants';
 
+// Calculates the % utilisation for the aircraft
 @Injectable({
   providedIn: 'root'
 })
-export class AircraftUtilisationService {
+export class AircraftUtilisationCalculatorService {
 
   public readonly aircraftUtilisation$: Observable<number>;
   private aircraftUtilisation = new BehaviorSubject(0);

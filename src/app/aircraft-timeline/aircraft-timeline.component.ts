@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { TimelineSlot } from '../aircraft-scheduling/timeline.model';
+import { TimelineSlot } from './timeline.model';
 import { AircraftTimelineCalculatorService } from './aircraft-timeline-calculator.service';
 
+// Displays at what points of the day the aircraft is active, idle or waiting for next flight (turnaround time)
 @Component({
   selector: 'mckee-aircraft-timeline',
   templateUrl: './aircraft-timeline.component.html',

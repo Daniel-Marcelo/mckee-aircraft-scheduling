@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { generateTimelineSlot, TimelineAction, TimelineSlot } from '../aircraft-scheduling/timeline.model';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { generateTimelineSlot, TimelineAction, TimelineSlot } from './timeline.model';
 import { twentyFourHoursSeconds } from '../constants/time.constants';
-import { Flight } from '../flight-service/flight.model';
+import { Flight } from '../flights-state/flight.model';
 
+// Calculates and generates timeline slots for use with the aircraft timeline component
 @Injectable({
   providedIn: 'root'
 })
@@ -20,7 +21,7 @@ export class AircraftTimelineCalculatorService {
     const timelineSlots = [] as TimelineSlot[];
     if (flights.length > 0) {
 
-      // Calculate time before first flight idle (if any)
+      // Calculate time before first flight idle
       timelineSlots.push(generateTimelineSlot(0, flights[0].departuretime, TimelineAction.idle));
 
       // Calculate remaining flights

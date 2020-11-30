@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AircraftUtilisationService } from './aircraft-utilisation.service';
+import { AircraftUtilisationCalculatorService } from './aircraft-utilisation-calculator.service';
 
 describe('AircraftUtilisationService', () => {
-  let service: AircraftUtilisationService;
+  let service: AircraftUtilisationCalculatorService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(AircraftUtilisationService);
+    service = TestBed.inject(AircraftUtilisationCalculatorService);
   });
 
   it('should be created', () => {
